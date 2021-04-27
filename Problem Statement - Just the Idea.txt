@@ -1,0 +1,41 @@
+Problem Statement: Cycle Rental System
+Task 1 :Display Inventory
+
+Task 2 :Bike for Hrs (Decide the Price)
+	ask no. of bikes and no. of hrs
+	per hr price(decide)
+
+Task 3 :Bike for days
+	ask no. of bikes and no. of days
+	per day price(decide)
+
+Task 4 :Bike for weeks
+	ask no. of bikes and no. of weeks
+	per week price(decide)
+
+The Bill should display
+Name: 
+No. of Bikes:
+Time for which the bike is rented:
+Date and time when rented(time module):
+Return date and time:
+Price: 
+
+Warning(at the end): How much fine they have to pay if late
+
+If we are allowed to use database then we can add the task of returning the bike too.
+
+Task 1: Generate Bill
+Task 2: Sales
+Task 3: Return Cycle
+
+Commands
+create database Cycle_Rental_System;
+use Cycle_Rental_System;
+
+create table Sales(SrNo integer, Name char(50),Phone_No char(10),No_of_Bikes integer,Cost_per_Bike integer, Rented_On_Date date, Rented_On_Time time,Return_On_Date date, Return_On_Time time,Total_Cost double, Returned boolean);
+insert into Sales values(1,"Yashvi Donga","9876593029",4,25,"2021-04-19","12:11:00","2021-04-20","12:11:00",25.0,False);
+
+ create table Fines(Name char(50),Amount int);
+
+ Create table Employee(Name char(50), Password char(50));
