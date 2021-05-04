@@ -95,7 +95,7 @@ class RentalSystemBill:
 class RentalSystemSales:
     def salesall(self):
         print("-"*140)
-        print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
+        print("\t\t\t\t\t\t\t  CYCLE RENTAL SYSTEM")
         print("\t\t\t\t\t\t\t\tSALES RECORDS")
         cursor.execute("Select * from Sales")
         output = cursor.fetchall()
@@ -125,14 +125,22 @@ class RentalSystemReturn:
         self.data = cursor.fetchall()
         data = list(self.data)
         current = time.localtime()
-
-        if(current.tm_mon in ["10", "11", "12"]):
-            currentdate = str(current.tm_year) + "-" + \
-                str(current.tm_mon) + "-" + str(current.tm_mday)
-        else:
+        print(type(current.tm_mon))
+        if(current.tm_mon not in [10, 11, 12] and current.tm_mday < 10):
+            currentdate = str(current.tm_year) + "-0" + \
+                str(current.tm_mon) + "-0" + str(current.tm_mday)
+        elif(current.tm_mon not in [10, 11, 12]):
             currentdate = str(current.tm_year) + "-0" + \
                 str(current.tm_mon) + "-" + str(current.tm_mday)
-        if(current.tm_hour in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]):
+            print(currentdate)
+        elif(current.tm_mday < 10):
+            currentdate = str(current.tm_year) + "-" + \
+                str(current.tm_mon) + "-0" + str(current.tm_mday)
+        else:
+            currentdate = str(current.tm_year) + "-" + \
+                str(current.tm_mon) + "-" + str(current.tm_mday)
+
+        if(current.tm_hour in [1, 2, 3, 4, 5, 6, 7, 8, 9]):
             currenttime = str(current.tm_hour) + ":0" + \
                 str(current.tm_min) + ":" + str(current.tm_sec)
         else:
@@ -146,6 +154,7 @@ class RentalSystemReturn:
             time.sleep(3)
         else:
             d1 = str(data[0][1])
+            print(d1, currentdate)
             print((d1.split('-'))[2])
             t1 = str(data[0][2])
             fine = 0
@@ -167,9 +176,9 @@ class RentalSystemReturn:
                     "Insert into Fines values('{}',{})".format(self.name, fine))
                 obj.commit()
             print("-"*110)
-            cursor.execute(
-                "Update Sales set Return_On_Date = '{}',Return_On_Time = '{}' ,Returned = True where Name = '{}'".format(currentdate, currenttime, self.name))
-            obj.commit()
+            # cursor.execute(
+            #     "Update Sales set Return_On_Date = '{}',Return_On_Time = '{}' ,Returned = True where Name = '{}'".format(currentdate, currenttime, self.name))
+            # obj.commit()
 
 
 print("-"*110)
@@ -180,7 +189,7 @@ password = input("Enter Your Password: ")
 cursor.execute(
     "Select * from Employee where Name = '{}' and Password = '{}'".format(username, password))
 if(cursor.rowcount == 1):
-    print("\n\t\t\t\t\tLOGIN SUCCESSFUL")
+    print("\n\t\t\t\t\t\tLOGIN SUCCESSFUL")
     print("-"*110)
     choice = 1
     while(choice):
