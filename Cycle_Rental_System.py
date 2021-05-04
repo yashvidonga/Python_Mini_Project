@@ -78,6 +78,7 @@ class RentalSystemBill:
         d = []
         d.append([self.no, self.percost, self.total])
         print("-"*105)
+        print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
         print("\t\t\t\t\tBILL")
         print("Name: ", self.name)
         print("Phone No.: ", self.phone)
@@ -94,6 +95,7 @@ class RentalSystemBill:
 class RentalSystemSales:
     def salesall(self):
         print("-"*140)
+        print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
         print("\t\t\t\t\t\t\t\tSALES RECORDS")
         cursor.execute("Select * from Sales")
         output = cursor.fetchall()
@@ -136,7 +138,8 @@ class RentalSystemReturn:
         else:
             currenttime = str(current.tm_hour) + ":" + \
                 str(current.tm_min) + ":" + str(current.tm_sec)
-
+        print("-"*110)
+        print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
         if (cursor.rowcount == 0):
             print("Record NOT Found")
             print("You will be returning to the start of the System")
@@ -150,12 +153,12 @@ class RentalSystemReturn:
                 print("You have been late in returning the cycles. ")
                 print("Late Day")
                 fine = 300*(int(current.tm_mday)-int((d1.split('-'))[2]))
-                print(fine)
+                print("Fine = Rs.", fine, "is required to be Paid by the Customer")
             elif(currentdate == str(data[0][1]) and currenttime > str(data[0][2])):
                 print("You have been late in returning the cycles. ")
                 print("Late Hr")
                 fine = 50*(int(current.tm_hour)-int((t1.split(':'))[0]))
-                print(fine)
+                print("Fine = Rs.", fine, "is required to be Paid by the Customer")
             elif(fine == 0):
                 print("Thank You For Returning the Bikes on Time")
 
@@ -163,13 +166,14 @@ class RentalSystemReturn:
                 cursor.execute(
                     "Insert into Fines values('{}',{})".format(self.name, fine))
                 obj.commit()
-
+            print("-"*110)
             cursor.execute(
                 "Update Sales set Return_On_Date = '{}',Return_On_Time = '{}' ,Returned = True where Name = '{}'".format(currentdate, currenttime, self.name))
             obj.commit()
 
 
 print("-"*110)
+print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
 print("\t\t\t\t\t\tLOGIN")
 username = input("Enter Your Username: ")
 password = input("Enter Your Password: ")
