@@ -78,7 +78,7 @@ class RentalSystemBill:
         d = []
         d.append([self.no, self.percost, self.total])
         print("-"*105)
-        print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
+        print("\t\t\t\tCYCLE RENTAL SYSTEM")
         print("\t\t\t\t\tBILL")
         print("Name: ", self.name)
         print("Phone No.: ", self.phone)
@@ -96,7 +96,7 @@ class RentalSystemSales:
     def salesall(self):
         print("-"*140)
         print("\t\t\t\t\t\t\t  CYCLE RENTAL SYSTEM")
-        print("\t\t\t\t\t\t\t\tSALES RECORDS")
+        print("\t\t\t\t\t\t\t  SALES RECORDS")
         cursor.execute("Select * from Sales")
         output = cursor.fetchall()
         print(tabulate(output, headers=["SrNo", "Name", "Phone\nNo.", "No of\nCycles", "Cost per\nCycles", "Rent\nDate", "Rent\nTime",
@@ -189,7 +189,7 @@ password = input("Enter Your Password: ")
 cursor.execute(
     "Select * from Employee where Name = '{}' and Password = '{}'".format(username, password))
 if(cursor.rowcount == 1):
-    print("\n\t\t\t\t\t\tLOGIN SUCCESSFUL")
+    print("\n\t\t\t\t\tLOGIN SUCCESSFUL")
     print("-"*110)
     choice = 1
     while(choice):
