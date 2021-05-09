@@ -10,8 +10,7 @@ global rcount
 rcount = cursor.rowcount
 
 
-class RentalSystemBill:
-
+class RentalSystemBill:  # for Bill related functionality this Class is used
     def __init__(self, name, timec, timet, no, phone) -> None:
         self.name = name
         self.timec = timec
@@ -19,6 +18,7 @@ class RentalSystemBill:
         self.no = no
         self.phone = phone
 
+    # This function Generates Values like return date and like which will be then displayed on the bill
     def Generate_Bill(self):
         curtime = time.localtime()
         global rcount
@@ -74,7 +74,7 @@ class RentalSystemBill:
             rcount, self.name, self.phone, self.no, per, self.curdate, self.currenttime, self.redate, self.retime, self.total, 0))
         obj.commit()
 
-    def PrintBill(self):
+    def PrintBill(self):  # This Function prints the Bill(in proper format)
         d = []
         d.append([self.no, self.percost, self.total])
         print("-"*105)
@@ -92,8 +92,8 @@ class RentalSystemBill:
         print("\n", "-"*105)
 
 
-class RentalSystemSales:
-    def salesall(self):
+class RentalSystemSales:  # This class has functionalities which will be used for Sales
+    def salesall(self):  # Prints the Sales of the Shop and also Displayes the fines
         print("-"*140)
         print("\t\t\t\t\t\t\t  CYCLE RENTAL SYSTEM")
         print("\t\t\t\t\t\t\t  SALES RECORDS")
@@ -115,17 +115,16 @@ class RentalSystemSales:
         print("-"*140)
 
 
-class RentalSystemReturn:
+class RentalSystemReturn:  # This class deals with Return relates Functionalities
     def __init__(self, name) -> None:
         self.name = name
 
-    def ReturnCycle(self):
+    def ReturnCycle(self):  # This Function checks the records and tells us if the bikes are being returned on time and if not then fines are alloted
         cursor.execute(
             "Select Name,Return_On_Date,Return_On_Time,Returned from Sales where Name = '{}'".format(self.name))
         self.data = cursor.fetchall()
         data = list(self.data)
         current = time.localtime()
-        print(type(current.tm_mon))
         if(current.tm_mon not in [10, 11, 12] and current.tm_mday < 10):
             currentdate = str(current.tm_year) + "-0" + \
                 str(current.tm_mon) + "-0" + str(current.tm_mday)
@@ -153,19 +152,17 @@ class RentalSystemReturn:
             print("You will be returning to the start of the System")
             time.sleep(3)
         else:
-            d1 = str(data[0][1])
+            d1 = str(data[0][1])  # [["Kim","date1","time",0/1]]
             print(d1, currentdate)
             print((d1.split('-'))[2])
             t1 = str(data[0][2])
             fine = 0
             if(currentdate > str(data[0][1])):
                 print("You have been late in returning the cycles. ")
-                print("Late Day")
                 fine = 300*(int(current.tm_mday)-int((d1.split('-'))[2]))
                 print("Fine = Rs.", fine, "is required to be Paid by the Customer")
             elif(currentdate == str(data[0][1]) and currenttime > str(data[0][2])):
                 print("You have been late in returning the cycles. ")
-                print("Late Hr")
                 fine = 50*(int(current.tm_hour)-int((t1.split(':'))[0]))
                 print("Fine = Rs.", fine, "is required to be Paid by the Customer")
             elif(fine == 0):
@@ -176,13 +173,13 @@ class RentalSystemReturn:
                     "Insert into Fines values('{}',{})".format(self.name, fine))
                 obj.commit()
             print("-"*110)
-            # cursor.execute(
-            #     "Update Sales set Return_On_Date = '{}',Return_On_Time = '{}' ,Returned = True where Name = '{}'".format(currentdate, currenttime, self.name))
-            # obj.commit()
+            cursor.execute(
+                "Update Sales set Return_On_Date = '{}',Return_On_Time = '{}' ,Returned = True where Name = '{}'".format(currentdate, currenttime, self.name))
+            obj.commit()
 
 
 print("-"*110)
-print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")
+print("\t\t\t\t\t  CYCLE RENTAL SYSTEM")  # This is the Login Page
 print("\t\t\t\t\t\tLOGIN")
 username = input("Enter Your Username: ")
 password = input("Enter Your Password: ")
@@ -206,14 +203,12 @@ if(cursor.rowcount == 1):
             customer.PrintBill()
 
         elif(choice == 2):
-            print('2')
             sale = RentalSystemSales()
             sale.salesall()
 
         elif(choice == 3):
             name = input(
                 "\nEnter Your Name(has to be in the same format as in the bill): ")
-            print("3")
             returncycle = RentalSystemReturn(name)
             returncycle.ReturnCycle()
 
