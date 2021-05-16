@@ -131,7 +131,6 @@ class RentalSystemReturn:  # This class deals with Return relates Functionalitie
         elif(current.tm_mon not in [10, 11, 12]):
             currentdate = str(current.tm_year) + "-0" + \
                 str(current.tm_mon) + "-" + str(current.tm_mday)
-            print(currentdate)
         elif(current.tm_mday < 10):
             currentdate = str(current.tm_year) + "-" + \
                 str(current.tm_mon) + "-0" + str(current.tm_mday)
@@ -153,8 +152,6 @@ class RentalSystemReturn:  # This class deals with Return relates Functionalitie
             time.sleep(3)
         else:
             d1 = str(data[0][1])  # [["Kim","date1","time",0/1]]
-            print(d1, currentdate)
-            print((d1.split('-'))[2])
             t1 = str(data[0][2])
             fine = 0
             if(currentdate > str(data[0][1])):
@@ -166,7 +163,7 @@ class RentalSystemReturn:  # This class deals with Return relates Functionalitie
                 fine = 50*(int(current.tm_hour)-int((t1.split(':'))[0]))
                 print("Fine = Rs.", fine, "is required to be Paid by the Customer")
             elif(fine == 0):
-                print("Thank You For Returning the Bikes on Time")
+                print("Thank You For Returning the Cycles on Time")
 
             if(fine != 0):
                 cursor.execute(
