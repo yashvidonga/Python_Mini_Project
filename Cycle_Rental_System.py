@@ -30,12 +30,12 @@ class RentalSystemBill:  # for Bill related functionality this Class is used
             "-"+str(curd)
         self.currenttime = str(
             curh) + ":" + str(curtime.tm_min) + ":" + str(curtime.tm_sec)
-        print(self.currenttime)
-        print(self.curdate)
+        # print(self.currenttime)
+        # print(self.curdate)
         per = 0
         self.percost = 0
         if(self.timec == 1):
-            hr = int(input("Enter Number of Hours: "))
+            hr = int(input("\nEnter Number of Hours: "))
             curh += hr
             self.percost = 50
             per = 50 * hr
@@ -44,7 +44,7 @@ class RentalSystemBill:  # for Bill related functionality this Class is used
                 curh -= 24
 
         elif(self.timec == 2):
-            day = int(input("Enter Number of Days: "))
+            day = int(input("\nEnter Number of Days: "))
             curd += day
             self.percost = 350
             per = 350 * day
@@ -56,7 +56,7 @@ class RentalSystemBill:  # for Bill related functionality this Class is used
                     curd -= 30
 
         elif(self.timec == 3):
-            mon = int(input("Enter Number of Months: "))
+            mon = int(input("\nEnter Number of Months: "))
             curm += mon
             self.percost = 2400
             per = 2400 * mon
@@ -95,7 +95,7 @@ class RentalSystemBill:  # for Bill related functionality this Class is used
 class RentalSystemSales:  # This class has functionalities which will be used for Sales
     def salesall(self):  # Prints the Sales of the Shop and also Displayes the fines
         print("-"*140)
-        print("\t\t\t\t\t\t\t  CYCLE RENTAL SYSTEM")
+        print("\t\t\t\t\t\t\tCYCLE RENTAL SYSTEM")
         print("\t\t\t\t\t\t\t  SALES RECORDS")
         cursor.execute("Select * from Sales")
         output = cursor.fetchall()
@@ -107,7 +107,7 @@ class RentalSystemSales:  # This class has functionalities which will be used fo
         totalrec = cursor.fetchall()
         print(tabulate(totalrec, headers=[
             "Total No. of Cycles Sold", "Total Earning"], tablefmt='psql', numalign="center"))
-        print("\n\t\t\t\t\t\t\t\tFINES RECORDS")
+        print("\n\t\t\t\t\t\tFINES RECORDS")
         cursor.execute("Select * from Fines")
         totalfine = cursor.fetchall()
         print(tabulate(totalfine, headers=[
@@ -186,7 +186,7 @@ password = input("Enter Your Password: ")
 cursor.execute(
     "Select * from Employee where Name = '{}' and Password = '{}'".format(username, password))
 if(cursor.rowcount == 1):
-    print("\n\t\t\t\t\tLOGIN SUCCESSFUL")
+    print("\n\t\t\t\t\t   LOGIN SUCCESSFUL")
     print("-"*110)
     choice = 1
     while(choice):
@@ -196,8 +196,8 @@ if(cursor.rowcount == 1):
             name = input("\nEnter Your Name: ")
             phone = input("\nEnter Your Phone No.: ")
             time_choice = int(input(
-                "Cost per cycle\nFor one Hour - Rs50\nFor one Day - Rs350\nFor one month - Rs2400\n1.Hourly\n2.Daily\n3.Monthly\nFor how much amount of time do you want to Rent the Cycle, Enter your Choice:"))
-            no = input("Enter the No. of Cycle to be Rented: ")
+                "\nCost per cycle\nFor one Hour - Rs50\nFor one Day - Rs350\nFor one month - Rs2400\n1.Hourly\n2.Daily\n3.Monthly\nFor how much amount of time do you want to Rent the Cycle, Enter your Choice:"))
+            no = input("\nEnter the No. of Cycle to be Rented: ")
             customer = RentalSystemBill(name, time_choice, 0, no, phone)
             customer.Generate_Bill()
             customer.PrintBill()
