@@ -30,8 +30,6 @@ class RentalSystemBill:  # for Bill related functionality this Class is used
             "-"+str(curd)
         self.currenttime = str(
             curh) + ":" + str(curtime.tm_min) + ":" + str(curtime.tm_sec)
-        # print(self.currenttime)
-        # print(self.curdate)
         per = 0
         self.percost = 0
         if(self.timec == 1):
@@ -151,7 +149,7 @@ class RentalSystemReturn:  # This class deals with Return relates Functionalitie
             print("You will be returning to the start of the System")
             time.sleep(3)
         else:
-            d1 = str(data[0][1])  # [["Kim","date1","time",0/1]]
+            d1 = str(data[0][1])
             t1 = str(data[0][2])
             fine = 0
             if(currentdate > str(data[0][1])):
