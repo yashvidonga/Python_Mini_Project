@@ -214,3 +214,4 @@ if(cursor.rowcount == 1):
 else:
     print("LOGIN UNSUCCESSFUL\nPlease Restart The Program")
     print("-"*110)
+obj.close()
